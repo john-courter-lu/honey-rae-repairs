@@ -1,0 +1,16 @@
+.tickets{
+    display: block;
+}
+
+/* display:flex; flex-direction:column; 等于display:block;吗? 
+不等于,因为前者是对child elements应用display:block
+后者是对parent element应用
+这里其实什么都不需要
+*/
+
+.ticket{
+    background-color: lightblue;
+    border:1px dotted darkblue;
+    padding:0.3rem;
+    margin:0.6rem 0;
+}
