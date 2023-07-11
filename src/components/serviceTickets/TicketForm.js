@@ -5,6 +5,8 @@ export const TicketForm = () => {
     /*
         TODO: Add the correct default properties to the
         initial state object
+
+        这里新建一个state: ticket也就是未来要POST的内容
     */
     const [ticket, update] = useState({
         description: "",
@@ -13,6 +15,11 @@ export const TicketForm = () => {
     /*
         TODO: Use the useNavigation() hook so you can redirect
         the user to the ticket list
+
+        新hook: useNavigate() 就是自动转跳
+        注意 const navigate = useNavigate()必须要写在函数handleSaveButtonClick()之外,
+        好像只能在React承认的函数格式中出现useNavigate(),
+        也就是每个首字母都要大写
     */
 
     const localHoneyUser = localStorage.getItem("honey_user")
@@ -20,9 +27,12 @@ export const TicketForm = () => {
     const navigate = useNavigate()
 
     const handleSaveButtonClick = (event) => {
-        event.preventDefault()
+        event.preventDefault() //这句话:阻止这个click event的default behavior( 一般browser会perform a default behavior), 主要用于防止form自动提交,防止follow 默认ahref links,防止page refresh
+
+
         // TODO: Create the object to be saved to the API
-        /**
+
+        /*这是从server复制的模板
          *   {
             "id": 5,
             "userId": 1,
@@ -37,18 +47,17 @@ export const TicketForm = () => {
             emergency: ticket.emergency,
             dateCompleted: ""
         }
+        // 这里直接用了ticket 因为下面会用update去修改它
 
         // TODO: Perform the fetch() to POST the object to the API
-
-
         return fetch(`http://localhost:8088/serviceTickets`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },//复数headers
             body: JSON.stringify(ticketObjToSendToAPI)
         })
             .then(res => res.json())
             .then(() => {
-                navigate("/tickets")
+                navigate("/tickets")//要用斜杠
             })
 
     }
@@ -67,7 +76,7 @@ export const TicketForm = () => {
                         value={ticket.description}
                         onChange={
                             (e) => {
-                                const copy = { ...ticket }
+                                const copy = { ...ticket }//spread syntax
                                 copy.description = e.target.value
                                 update(copy)
                             }
@@ -89,8 +98,8 @@ export const TicketForm = () => {
                 </div>
             </fieldset>
             <button
-                onClick={(clickEvent) => {
-                    handleSaveButtonClick(clickEvent)
+                onClick={(evt) => {
+                    handleSaveButtonClick(evt)//这里invoke函数,注意要有argument:e/evt/event; 
                 }}
                 className="btn btn-primary">
                 Submit Ticket

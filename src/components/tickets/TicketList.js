@@ -52,14 +52,14 @@ export const TicketList = () => {
 
   //问题: 写了之后,不行. 在dev tools中Components中显示第二个state是我们需要的,但是不显示. 
 
-  // 
+  // 章8 顾客可以选择只看open tickets
   useEffect(
     () => {
       const openTicketArray = tickets.filter(ticket => {
         return ticket.userId === honeyUserObject.id && ticket.dateCompleted === ""
-      })
+      })  //这里可以用大括号+return的方式, 来让conditional更加复杂( and )
       const myTickets = tickets.filter(ticket => ticket.userId === honeyUserObject.id)
-      openOnly ? setFiltered(openTicketArray) : setFiltered(myTickets)
+      openOnly ? setFiltered(openTicketArray) : setFiltered(myTickets)  //教材中用了if else
     },
     [openOnly]
   )

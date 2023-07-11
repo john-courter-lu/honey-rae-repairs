@@ -1,6 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { TicketList } from "../tickets/TicketList"
 import { TicketForm } from "../serviceTickets/TicketForm.js"
+import { TicketSearch } from "../tickets/TicketSearch.js"
+import { TicketContainer } from "../tickets/TicketContainer.js"
 
 export const ApplicationViews = () => {
     return (
@@ -14,7 +16,7 @@ export const ApplicationViews = () => {
                 </>
             }>
 
-            <Route path="tickets" element={<TicketList />} />
+            <Route path="tickets" element={<TicketContainer />} />
             <Route path="ticket/create" element={<TicketForm />} />
 
             </Route>
@@ -33,3 +35,13 @@ export const ApplicationViews = () => {
 
 //章7 节3  为创建ticket form来增加route
 //<Route path="ticket/create" element={ <TicketForm /> } />
+
+/*章9 发现: 
+
+这里的route不等于navigate, 而是但route matches时,指定哪几个components to render 
+
+it uses a JSX fragment (<> ... </>) to enclose multiple components.
+这两个components都会被render, 而他们的责任是render a search form and a list of tickets.
+
+但是它们不能互相沟通, 于是TicketContainer.js和相应的组件(component)
+*/
