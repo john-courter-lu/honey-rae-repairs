@@ -1,8 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { TicketList } from "../tickets/TicketList"
 import { TicketForm } from "../tickets/TicketForm"
-//import { TicketSearch } from "../tickets/TicketSearch"
-//import { TicketContainer } from "../tickets/TicketContainer" // needed for employees
+import { Profile } from "../profile/Profile.js"
 
 
 ////// dont forget to change from ApplicationViews to CustomerViews
@@ -20,6 +19,7 @@ export const CustomerViews = () => {
 
                 <Route path="tickets" element={ <TicketList /> } />                             
                 <Route path="ticket/create" element={ <TicketForm /> } />
+                <Route path="profile" element={ <Profile /> } />
      
             </Route>
         </Routes>
