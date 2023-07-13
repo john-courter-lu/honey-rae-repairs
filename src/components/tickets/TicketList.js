@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./TicketList.css"
 
-export const TicketList = () => {
+export const TicketList = ({ searchTermState }) => { //章9 引入props
   const [tickets, setTickets] = useState([]) //章3 节1
   const [filteredTickets, setFiltered] = useState([]) //章5 显示顾客的tickets
   const [emergency, setEmergency] = useState(false)// 章6 与其是empty array, 这里用false, 说明:希望default是false. 我的理解: const后的第一个variable的initial value是useState括号中指定的.
@@ -12,6 +12,19 @@ export const TicketList = () => {
 
   const localHoneyUser = localStorage.getItem("honey_user")//章5 从local storage中提取当前登录的user的obj(包括id,staff), 但一开始是string(问题:默认是string?)
   const honeyUserObject = JSON.parse(localHoneyUser) //把string变为obj
+
+  useEffect(      // to observe state from parent  & filter down to what is typed into search tab
+    () => {
+      const searchedTickets = tickets.filter(ticket => ticket.description?.startsWith(searchTermState)) // 再次打开了filter的思路: 用大括号和return, 结合startWith; 也可去掉大括号和return, 但要同一行
+      //发现: 是因为有些ticket没有description. 是我create时没有description
+      setFiltered(searchedTickets)
+      //console.log(searchTermState)
+    },
+    [searchTermState]
+  )
+  // devTools components -> ticketList -> props -> searchTermState: ""     <-shows in parentheses what you are currently typing
+  // if you console.log(searchTermState) in the use effect it will show everything typed into the search in the console log
+
 
   useEffect(() => { //afee 快捷键 empty arrow function
     if (emergency) {

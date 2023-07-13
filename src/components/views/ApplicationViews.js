@@ -1,27 +1,18 @@
-import { Outlet, Route, Routes } from "react-router-dom"
-import { TicketList } from "../tickets/TicketList"
-import { TicketForm } from "../serviceTickets/TicketForm.js"
-import { TicketSearch } from "../tickets/TicketSearch.js"
-import { TicketContainer } from "../tickets/TicketContainer.js"
+import { CustomerViews } from "./CustomerViews"
+import { EmployeeViews } from "./EmployeeViews"
 
 export const ApplicationViews = () => {
-    return (
-        <Routes>
-            <Route path="/" element={
-                <>
-                    <h1>Honey Rae Repair Shop</h1>
-                    <div>Your one-stop-shop to get all your electronics fixed</div>
 
-                    <Outlet />
-                </>
-            }>
+    const localHoneyUser = localStorage.getItem("honey_user")
+    const honeyUserObject = JSON.parse(localHoneyUser) 
+  
+    if (honeyUserObject.staff) {
+        return <EmployeeViews />
+    }  
+    else {
+        return <CustomerViews />
 
-            <Route path="tickets" element={<TicketContainer />} />
-            <Route path="ticket/create" element={<TicketForm />} />
-
-            </Route>
-        </Routes>
-    )
+}
 }
 
 //章3 最后一节React Developer Tools
@@ -44,4 +35,22 @@ it uses a JSX fragment (<> ... </>) to enclose multiple components.
 这两个components都会被render, 而他们的责任是render a search form and a list of tickets.
 
 但是它们不能互相沟通, 于是TicketContainer.js和相应的组件(component)
+*/
+
+/*章10 Custom Routing Per User Type #custom-routes
+ * EmployeeViews and CustomerViews
+* 如果
+*/
+
+/*章11 List of Employees 显示employee的list #props #route-parameters 这里看视频
+*/
+
+/*章12 employee中显示Customer List 这里要自己写
+Customer module
+CustomerList module
+CustomerDetails component
+*/
+
+/* 章13 Editing Profile: Employee #forms #edit 
+ * 
 */

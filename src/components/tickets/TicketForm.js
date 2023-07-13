@@ -27,7 +27,7 @@ export const TicketForm = () => {
     const navigate = useNavigate()
 
     const handleSaveButtonClick = (event) => {
-        event.preventDefault() //这句话:阻止这个click event的default behavior( 一般browser会perform a default behavior), 主要用于防止form自动提交,防止follow 默认ahref links,防止page refresh
+        event.preventDefault() //这句话:阻止这个click event的default behavior( 一般browser会perform a default behavior), 主要用于防止form自动提交,防止follow 默认ahref links,防止page refresh. 这里是防止refresh/reload. 我们不希望triger page refresh with a POST
 
 
         // TODO: Create the object to be saved to the API
@@ -55,9 +55,12 @@ export const TicketForm = () => {
             headers: { "Content-Type": "application/json" },//复数headers
             body: JSON.stringify(ticketObjToSendToAPI)
         })
-            .then(res => res.json())
+            .then(res => res.json())//send back 完成的obj, via stringify()-json() 经历了obj-string/text-obj的过程
             .then(() => {
                 navigate("/tickets")//要用斜杠
+                // 要是不转跳的话, 需要1 refresh: 用setFiltered(tickets) 
+                // 2. setUserChoice为初始值
+                // 这可能要在父子组件中传递props
             })
 
     }

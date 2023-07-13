@@ -1,4 +1,4 @@
-export const TicketSearch = ({ setterFunction }) => {  // returns an input field 
+export const TicketSearch = ({ setterFunction }) => {  // 这里的argument: setterFunction 是从TicketContainer 组件中继承的 setterFunction={setSearchTerms}
     return (
         <div>
         <input 
